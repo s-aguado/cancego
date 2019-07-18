@@ -8,8 +8,8 @@ Calquera pode empregar, modificar e distribuir este proxecto baixo os termos da 
 
 
 ### Montaxe e esquema eléctrico:
-![Montaxe](./schema/montaxe.png)
-![Esquema](./schema/esquema.png)
+![Montaxe](./doc/montaxe.png)
+![Esquema](./doc/esquema.png)
 
 
 > Sara Aguado Couselo (2019)
