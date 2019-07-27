@@ -7,7 +7,7 @@
  *  Sara Aguado Couselo © 2019
  */
  
-#define NOSE /* Distancia do sensor ao fuciño (cm): */ 10
+#define NOSE /* Distancia do sensor ao fuciño (cm): */  5
 #define CONT /* Pitido continuo ata (cm):           */  5
 #define FAST /* Pitido rápido ata (cm):             */ 10 
 #define SLOW /* Pitido lento ata (cm):              */ 15
@@ -27,23 +27,26 @@ long distance;
 
 void setup() {
   pinMode(BUZZ_PIN, OUTPUT); // zumbador
+  Serial.begin(9600);
 }
 
 void loop() {
   distance = sr04.Distance();                 // O sensor obtén a distancia en centímetros
-
-  if (distance < NOSE || distance > SLOW) {   // Se a distancia é grande ou menor á do fuciño...
+  Serial.println(distance);
+  if (distance < NOSE || distance > NOSE+SLOW) {   // Se a distancia é grande ou menor á do fuciño...
     noTone(BUZZ_PIN);                         // ...silencio para non molestar
   } 
-  else if (distance < CONT) {                 // Se a distancia é PEQUENA...
-    tone(BUZZ_PIN, 523);                      // ...o pitido é CONTINUO
+  else if (distance < NOSE+CONT) {                 // Se a distancia é PEQUENA...
+    tone(BUZZ_PIN, 523, 1500);                      // ...o pitido é CONTINUO
+    delay(1600);
+    noTone(BUZZ_PIN);
   } 
-  else if (distance < FAST) {
+  else if (distance < NOSE+FAST) {
     tone(BUZZ_PIN, 523, 250);                 // Se a distancia é MEDIA...
     delay(325);                               // ...o pitido é RÁPIDO
     noTone(BUZZ_PIN);
   } 
-  else if (distance < SLOW) {                 // Se a distancia é GRANDE...
+  else if (distance < NOSE+SLOW) {                 // Se a distancia é GRANDE...
     tone(BUZZ_PIN, 523, 250);                 // ...o pitido é LENTO
     delay(500);
     noTone(BUZZ_PIN);
